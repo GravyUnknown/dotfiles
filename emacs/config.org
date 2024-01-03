@@ -1,0 +1,264 @@
+#+title: GravEmacs
+#+description: Personal Emacs configuration
+
+* Gui
+
+#+begin_src emacs-lisp
+  (tool-bar-mode 0)
+  (menu-bar-mode 0)
+  (setq inhibit-startup-message t)
+  (scroll-bar-mode 0)
+#+end_src
+
+* Font
+
+#+begin_src emacs-lisp
+    (set-face-attribute 'default nil
+		      :family "Caskaydia Cove Nerd Font"
+                      :height 130)
+#+end_src
+
+* Small Changes
+
+#+begin_src emacs-lisp
+  (global-display-line-numbers-mode)
+  (setq display-line-numbers-type 'relative)
+  (setq use-package-always-ensure t)
+  (setq scroll-margin 8)
+  (setq make-backup-files nil) 
+#+end_src
+
+* Melpa
+
+#+begin_src emacs-lisp
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+#+end_src
+
+
+* Org
+
+** Org Tempo
+
+#+begin_src emacs-lisp
+  (require 'org-tempo)
+#+end_src
+
+** Org Bullets
+
+#+begin_src emacs-lisp
+  (use-package org-bullets
+  :ensure t
+  :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+#+end_src
+
+
+* Evil Mode
+
+#+begin_src emacs-lisp
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode 1))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
+#+end_src
+
+
+* Doom Themes
+
+#+begin_src emacs-lisp
+  (use-package doom-themes
+  :ensure t
+  :init (load-theme 'doom-tokyo-night 't))
+#+end_src
+
+* Nerd Icons
+
+#+begin_src emacs-lisp
+  (use-package nerd-icons)
+
+  (use-package nerd-icons-dired
+    :hook
+    (dired-mode . nerd-icons-dired-mode))
+
+  (use-package nerd-icons-completion
+  :after marginalia
+  :config
+  (nerd-icons-completion-mode)
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+
+#+end_src
+
+
+* Marginalia
+
+#+begin_src emacs-lisp
+(use-package marginalia
+  :bind (:map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+  :init
+  (marginalia-mode))
+#+end_src
+
+* Vertico
+
+#+begin_src emacs-lisp
+  (use-package vertico
+  :init (vertico-mode))
+#+end_src
+
+* Doom Modeline
+
+#+begin_src emacs-lisp
+  (use-package doom-modeline
+    :init (doom-modeline-mode)
+    :config (setq doom-modeline-height 50))
+#+end_src
+
+* Languages
+
+** Python
+
+#+begin_src emacs-lisp
+  (use-package python
+  :hook (python-ts-mode . lsp-deferred)
+  :mode ("\\.py\\'" . python-ts-mode))
+  (use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+			  (require 'lsp-pyright)
+			  (lsp-deferred))))
+#+end_src
+
+
+* Company
+
+#+begin_src emacs-lisp
+    (use-package company
+      :config (add-hook 'after-init-hook 'global-company-mode)
+               (setq company-idle-delay 0.0))
+    (use-package company-box
+      :hook (company-mode . company-box-mode))
+#+end_src
+
+
+* Orderless
+
+#+begin_src emacs-lisp
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+#+end_src
+
+
+* Lsp Mode
+
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+   :commands (lsp lsp-deferred))
+  (use-package lsp-ui
+   :hook (lsp-mode . lsp-ui-mode)
+   :config (setq lsp-ui-sideline-show-diagnostics t)
+	   (setq lsp-ui-sideline-show-hover t))
+#+end_src
+
+* General
+
+#+begin_src emacs-lisp
+(use-package general)
+#+end_src
+
+* Keybindings
+
+** Dired
+
+Yanked from DistroTube
+
+#+begin_src emacs-lisp
+(evil-define-key 'normal dired-mode-map
+  (kbd "M-RET") 'dired-display-file
+  (kbd "h") 'dired-up-directory
+  (kbd "l") 'dired-open-file ; use dired-find-file instead of dired-open.
+  (kbd "m") 'dired-mark
+  (kbd "t") 'dired-toggle-marks
+  (kbd "u") 'dired-unmark
+  (kbd "C") 'dired-do-copy
+  (kbd "D") 'dired-do-delete
+  (kbd "J") 'dired-goto-file
+  (kbd "M") 'dired-do-chmod
+  (kbd "O") 'dired-do-chown
+  (kbd "P") 'dired-do-print
+  (kbd "R") 'dired-do-rename
+  (kbd "T") 'dired-do-touch
+  (kbd "Y") 'dired-copy-filenamecopy-filename-as-kill ; copies filename to kill ring.
+  (kbd "Z") 'dired-do-compress
+  (kbd "+") 'dired-create-directory
+  (kbd "-") 'dired-do-kill-lines
+  (kbd "% l") 'dired-downcase
+  (kbd "% m") 'dired-mark-files-regexp
+  (kbd "% u") 'dired-upcase
+  (kbd "* %") 'dired-mark-files-regexp
+  (kbd "* .") 'dired-mark-extension
+  (kbd "* /") 'dired-mark-directories
+  (kbd "; d") 'epa-dired-do-decrypt
+  (kbd "; e") 'epa-dired-do-encrypt)
+#+end_src
+
+** General Keybindings 
+
+#+begin_src emacs-lisp
+      (general-define-key
+      :states 'normal
+      :prefix "SPC"
+      "f f" 'find-file
+      "f b" 'switch-to-buffer
+      "b p" 'previous-buffer
+      "b n" 'next-buffer)
+      (general-define-key
+      "C-x C-b" 'ibuffer)
+#+end_src
+
+
+* Dashboard
+
+#+begin_src emacs-lisp
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook)
+    (setq dashboard-banner-logo-title "Welcome to my Emacs Society")
+    (setq dashboard-startup-banner "~/.config/emacs/ltg-low-tier-god.gif")
+    (setq dashboard-center-content t)
+    (setq dashboard-items '((recents  . 5)
+			    (projects . 5)
+			    ))
+    (setq dashboard-footer-messages '("We Ohio. Gyatt. Rizz"))
+    (setq dashboard-set-heading-icons t
+	  dashboard-set-file-icons t)
+    (setq dashboard-icon-type 'nerd-icons)
+    (dashboard-modify-heading-icons '((recents . "nf-oct-history")
+				  (projects . "nf-oct-rocket"))))
+#+end_src
+
+* Projectile
+
+#+begin_src emacs-lisp
+(use-package projectile)
+#+end_src
+
+* Vterm
+
+#+begin_src emacs-lisp
+(use-package vterm)
+#+end_src
