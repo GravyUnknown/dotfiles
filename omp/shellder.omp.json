@@ -3,57 +3,57 @@
     "final_space": true,
     "version": 2,
     "blocks": [
-     {
-        "type": "prompt",
-        "alignment": "left",
-        "segments": [
-            {
-                "type": "session",
-                "style": "diamond",
-                "leading_diamond": "",
-                "trailing_diamond": "",
-                "foreground": "#ffffff",
-                "background": "#1E2326",
-                "template": " {{.HostName}} "
-            },
-            {
-                "type": "text",
-                "style": "powerline",
-                "powerline_symbol": "",
-                "template": "",
-                "foreground": "#1E2326"
-            },
-            { 
-                "type": "path",
-                "style": "powerline",
-                "powerline_symbol": "",
-                "foreground": "#ffffff",
-                "background": "#384b55",
-                "properties": {
-                    "style": "mixed"
+        {
+            "type": "prompt",
+            "alignment": "left",
+            "segments": [
+                {
+                    "type": "session",
+                    "style": "diamond",
+                    "leading_diamond": "",
+                    "trailing_diamond": "",
+                    "foreground": "#ffffff",
+                    "background": "#1E2326",
+                    "template": " {{.HostName}} "
                 },
-                "template": " {{.Path}} "
-            },
-            {
-                "type": "git",
-                "style": "powerline",
-                "powerline_symbol": "",
-                "foreground": "#193549",
-                "background": "#ffeb3b",
-                "background_templates": [
-                  "{{ if or (.Working.Changed) (.Staging.Changed) }}#FFEB3B{{ end }}",
-                  "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#FFCC80{{ end }}",
-                  "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
-                  "{{ if gt .Behind 0 }}#B388FB{{ end }}"
-                ],
-                "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}",
-                "properties": {
-                  "fetch_status": true,
-                  "fetch_upstream_icon": true
-                  }
+                {
+                    "type": "text",
+                    "style": "powerline",
+                    "powerline_symbol": "",
+                    "template": "",
+                    "foreground": "#1E2326"
+                },
+                { 
+                    "type": "path",
+                    "style": "powerline",
+                    "powerline_symbol": "",
+                    "foreground": "#ffffff",
+                    "background": "#384b55",
+                    "properties": {
+                        "style": "letter"
+                    },
+                    "template": " {{.Path}} "
+                },
+                {
+                    "type": "git",
+                    "style": "powerline",
+                    "powerline_symbol": "",
+                    "foreground": "#193549",
+                    "background": "#ffeb3b",
+                    "background_templates": [
+                        "{{ if or (.Working.Changed) (.Staging.Changed) }}#FFEB3B{{ end }}",
+                        "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#FFCC80{{ end }}",
+                        "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
+                        "{{ if gt .Behind 0 }}#B388FB{{ end }}"
+                    ],
+                    "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}",
+                    "properties": {
+                        "fetch_status": true,
+                        "fetch_upstream_icon": true
+                    }
                 }
-              
-        ]
-     }    
+
+            ]
+        }    
     ]
-  }
+}
