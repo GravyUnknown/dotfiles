@@ -7,21 +7,31 @@
             "type": "prompt",
             "alignment": "left",
             "segments": [
+		{
+		
+		   "type": "session",
+		   "style": "diamond",
+		   "leading_diamond": "",
+		   "trailing_diamond": "",
+		   "foreground": "#fffffff",
+		   "background": "#414868",
+		   "template": " {{.UserName}} "
+		},
+		{	
+		   "type": "text",
+		   "style": "powerline",
+		   "powerline_symbol": "",
+		   "template": "",
+		   "foreground": "#414868"
+
+		},
                 {
                     "type": "session",
-                    "style": "diamond",
-                    "leading_diamond": "",
-                    "trailing_diamond": "",
+                    "style": "powerline",
+                    "powerline_symbol": "",
                     "foreground": "#ffffff",
                     "background": "#1E2326",
                     "template": " {{.HostName}} "
-                },
-                {
-                    "type": "text",
-                    "style": "powerline",
-                    "powerline_symbol": "",
-                    "template": "",
-                    "foreground": "#1E2326"
                 },
                 { 
                     "type": "path",
@@ -54,6 +64,6 @@
                 }
 
             ]
-        }    
+        }
     ]
 }
