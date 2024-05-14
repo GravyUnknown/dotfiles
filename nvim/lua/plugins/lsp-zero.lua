@@ -11,6 +11,8 @@ return {
     },
     config=function()
         local lsp_zero = require('lsp-zero')
+        local lspconfig = require('lspconfig')
+        lsp_zero.extend_lspconfig()
 
         lsp_zero.on_attach(function(client, bufnr)
             -- see :help lsp-zero-keybindings
@@ -25,6 +27,16 @@ return {
             handlers = {
                 lsp_zero.default_setup,
             }
+        })
+
+        lspconfig.pyright.setup({
+            capabilities = capabilities
+        })
+        lspconfig.lua_ls.setup({
+            capabilities = capabilities
+        })
+        lspconfig.clangd.setup({
+            capabilities = capabilities
         })
 
         local cmp = require "cmp"

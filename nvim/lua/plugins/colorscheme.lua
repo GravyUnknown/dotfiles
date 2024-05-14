@@ -1,8 +1,8 @@
 return {
-  "folke/tokyonight.nvim",
-  lazy = false,
-  priority = 1000,
-  config=function()
-      vim.cmd[[colorscheme tokyonight]]
- end,
+    "https://github.com/sainnhe/everforest",
+    lazy = false,
+    priority = 1000,
+    config = function()
+        vim.cmd[[colorscheme everforest]]
+    end,
 }
