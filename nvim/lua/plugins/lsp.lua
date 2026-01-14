@@ -19,6 +19,7 @@ return
   config = function()
     vim.lsp.enable('lua_ls')
     vim.lsp.enable('clangd')
+    vim.lsp.enable('jsonls')
     vim.diagnostic.config({ virtual_text = true, update_in_insert = true })
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('my.lsp', {}),
